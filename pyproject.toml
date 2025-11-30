@@ -1,0 +1,40 @@
+[build-system]
+requires = ["setuptools>=64", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "ne402_final_project"
+version = "0.1.0"
+description = "ABWR reactor vessel thermal hydraulic analysis"
+authors = [
+    { name = "Killian Woods", email = "kjwoods@ncsu.edu"}
+]
+readme = "README.md"
+requires-python = ">=3.10"
+
+dependencies = [
+    "contourpy==1.3.3",
+    "CoolProp==7.2.0",
+    "cycler==0.12.1",
+    "et_xmlfile==2.0.0",
+    "fonttools==4.60.0",
+    "iapws==1.5.4",
+    "kiwisolver==1.4.9",
+    "matplotlib==3.10.6",
+    "numpy==2.3.3",
+    "openpyxl==3.1.5",
+    "packaging==25.0",
+    "pandas==2.3.2",
+    "patsy==1.0.2",
+    "pillow==11.3.0",
+    "pyparsing==3.2.4",
+    "python-dateutil==2.9.0.post0",
+    "pytz==2025.2",
+    "scipy==1.16.2",
+    "six==1.17.0",
+    "statsmodels==0.14.5",
+    "tzdata==2025.2"
+]
+
+[tool.setuptools.packages.find]
+where = ["src"]
