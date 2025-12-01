@@ -306,10 +306,10 @@ class PressureDrop:
         water_func: callable,
         pp_density_func: callable,
     ) -> float:
-        avg_mflux = (
+        physics_avg_mflux = (
             avg_mflux * self.reactor.A * self.reactor.num_rods / self.reactor.A_ch
         )
-        hot_mflux = (
+        physics_hot_mflux = (
             hot_mflux * self.reactor.A * self.reactor.num_rods / self.reactor.A_ch
         )
         DeltaH = self.reactor.H_chimney
@@ -328,7 +328,7 @@ class PressureDrop:
 
         def _friction_losses() -> float:
             reynolds = calc_reynolds(
-                mflux=avg_mflux,
+                mflux=physics_avg_mflux,
                 D_e=D_e,
                 mu=water_func(z=H_core, avg_mflux=avg_mflux, hot_mflux=avg_mflux).mu,
             )
@@ -339,7 +339,7 @@ class PressureDrop:
             )
 
             pp_friction_losses = (f / rho) * pp_mult * DeltaH
-            return (avg_mflux**2 / (2 * G_C_in_hr * D_e)) * (pp_friction_losses)
+            return (physics_avg_mflux**2 / (2 * G_C_in_hr * D_e)) * (pp_friction_losses)
 
         def _forms_losses() -> float:
             return 0
@@ -374,11 +374,11 @@ class PressureDrop:
         water_func: callable,
         pp_density_func: callable,
     ) -> float:
-        avg_mflux = (
-            avg_mflux * self.reactor.A * self.reactor.num_rods / self.reactor.A_v
+        physics_avg_mflux = (
+            avg_mflux * self.reactor.A * self.reactor.num_rods / self.reactor.A_ch
         )
-        hot_mflux = (
-            hot_mflux * self.reactor.A * self.reactor.num_rods / self.reactor.A_v
+        physics_hot_mflux = (
+            hot_mflux * self.reactor.A * self.reactor.num_rods / self.reactor.A_ch
         )
         DeltaH = self.reactor.H_chimney + self.reactor.H_core - 0
         H_chimney = self.reactor.H_chimney + self.reactor.H_core
@@ -397,7 +397,7 @@ class PressureDrop:
         def _friction_losses() -> float:
 
             reynolds = calc_reynolds(
-                mflux=avg_mflux,
+                mflux=physics_avg_mflux,
                 D_e=D_e,
                 mu=water_func(z=0, avg_mflux=avg_mflux, hot_mflux=avg_mflux).mu,
             )
@@ -405,11 +405,13 @@ class PressureDrop:
             rho = water_func(z=0, avg_mflux=avg_mflux, hot_mflux=avg_mflux).rho
 
             p_friction_losses = (f / rho) * DeltaH
-            return (avg_mflux**2 / (2 * G_C_in_hr * D_e)) * (p_friction_losses)
+            return (physics_avg_mflux**2 / (2 * G_C_in_hr * D_e)) * (p_friction_losses)
 
         def _forms_losses() -> float:
             rho = water_func(z=0, avg_mflux=avg_mflux, hot_mflux=avg_mflux).rho
-            return (avg_mflux**2 * self.reactor.loss_downcomer) / (2 * G_C_in_hr * rho)
+            return (physics_avg_mflux**2 * self.reactor.loss_downcomer) / (
+                2 * G_C_in_hr * rho
+            )
 
         def _elevation_losses() -> float:
             losses = (
