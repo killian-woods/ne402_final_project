@@ -70,8 +70,7 @@ if (
     print("!!!")
     print(hot_mflux)
 
-deltaP_core = deltaP.hot_core_losses(avg_mflux=avg_mflux, hot_mflux=hot_mflux)
-avg_mflux = deltaP.find_mass_flux_from_core_deltaP(deltaP=deltaP_core)
+avg_mflux = avg_flux_from_hot_flux(avg_mflux=avg_mflux, hot_mflux=hot_mflux)
 print(hot_mflux, avg_mflux)
 
 hot_anals = TemperatureAnalysis(q0_crit=qflux.hot_q0, type_name="Hot")

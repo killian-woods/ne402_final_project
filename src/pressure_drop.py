@@ -306,6 +306,12 @@ class PressureDrop:
         water_func: callable,
         pp_density_func: callable,
     ) -> float:
+        avg_mflux = (
+            avg_mflux * self.reactor.A * self.reactor.num_rods / self.reactor.A_ch
+        )
+        hot_mflux = (
+            hot_mflux * self.reactor.A * self.reactor.num_rods / self.reactor.A_ch
+        )
         DeltaH = self.reactor.H_chimney
         H_chimney = self.reactor.H_chimney + self.reactor.H_core
         H_core = self.reactor.H_core
@@ -368,6 +374,12 @@ class PressureDrop:
         water_func: callable,
         pp_density_func: callable,
     ) -> float:
+        avg_mflux = (
+            avg_mflux * self.reactor.A * self.reactor.num_rods / self.reactor.A_v
+        )
+        hot_mflux = (
+            hot_mflux * self.reactor.A * self.reactor.num_rods / self.reactor.A_v
+        )
         DeltaH = self.reactor.H_chimney + self.reactor.H_core - 0
         H_chimney = self.reactor.H_chimney + self.reactor.H_core
         H_core = self.reactor.H_core
